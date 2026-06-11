@@ -32,14 +32,14 @@ Mapa com localização dos eventos: Especialmente útil se os eventos forem em d
 
 ## Informações Gerais
 
-- Nome:
-- Matricula:
+- Nome: Gabriel Henrique de Souza Rodrigues
+- Matricula: 913558
 
 ## Prints do trabalho
 
 <<  COLOQUE A IMAGEM - TELA DE CARDS DE PRODUTOS - AQUI >>
-
-<<  COLOQUE A IMAGEM - TELA DE DETALHE DO PRODUTO - AQUI >>
+![Imagem Card de Produtos](images/dados.png)
 
 <<  COLOQUE A IMAGEM - TELA DO CONSOLE - AQUI >>
+![Imagem Tela do Console](images/console.png)
 
