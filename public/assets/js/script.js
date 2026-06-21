@@ -36,6 +36,82 @@ function showError(container, msg) {
   `;
 }
 
+function showToast(msg, isError = false) {
+  let toast = document.getElementById("appToast");
+  if (!toast) {
+    toast = document.createElement("div");
+    toast.id = "appToast";
+    toast.className = "toast-custom";
+    document.body.appendChild(toast);
+  }
+  toast.classList.toggle("error", isError);
+  toast.textContent = msg;
+  toast.classList.add("show");
+  clearTimeout(toast._timeout);
+  toast._timeout = setTimeout(() => toast.classList.remove("show"), 3000);
+}
+
+let _deleteTargetId = null;
+
+function ensureConfirmModal() {
+  let overlay = document.getElementById("confirmOverlay");
+  if (overlay) return overlay;
+
+  overlay = document.createElement("div");
+  overlay.id = "confirmOverlay";
+  overlay.className = "confirm-overlay";
+  overlay.innerHTML = `
+    <div class="confirm-box">
+      <h3>Excluir destino?</h3>
+      <p id="confirmText">Esta ação não pode ser desfeita.</p>
+      <div class="confirm-actions">
+        <button type="button" class="btn-cancel" onclick="closeConfirmModal()">Cancelar</button>
+        <button type="button" class="btn-confirm-delete" onclick="executeDelete()">Excluir</button>
+      </div>
+    </div>
+  `;
+  document.body.appendChild(overlay);
+  overlay.addEventListener("click", (e) => {
+    if (e.target === overlay) closeConfirmModal();
+  });
+  return overlay;
+}
+
+function confirmDelete(id, nome) {
+  _deleteTargetId = id;
+  const overlay = ensureConfirmModal();
+  document.getElementById("confirmText").textContent = `Tem certeza que deseja excluir "${nome}"? Esta ação não pode ser desfeita.`;
+  overlay.classList.add("show");
+}
+
+function closeConfirmModal() {
+  const overlay = document.getElementById("confirmOverlay");
+  if (overlay) overlay.classList.remove("show");
+  _deleteTargetId = null;
+}
+
+async function executeDelete() {
+  if (_deleteTargetId == null) return;
+  const id = _deleteTargetId;
+  closeConfirmModal();
+
+  try {
+    const response = await fetch(`${API_URL}/${id}`, { method: "DELETE" });
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    showToast("Destino excluído com sucesso.");
+
+    if (window.location.pathname.includes("detalhe")) {
+      setTimeout(() => { window.location.href = "index.html"; }, 900);
+    } else {
+      const card = document.querySelector(`[data-id="${id}"]`);
+      buildHomePage();
+    }
+  } catch (err) {
+    console.error(err);
+    showToast("Erro ao excluir o destino.", true);
+  }
+}
+
 // ─── HOME PAGE ───────────────────────────────────────────────────────────────
 
 async function fetchItems() {
@@ -85,6 +161,10 @@ function createCard(lugar) {
   col.innerHTML = `
     <a href="detalhe.html?id=${lugar.id}" class="dest-card">
       <div class="dest-card-img">
+        <div class="dest-card-actions">
+          <button type="button" class="card-action-btn edit" title="Editar" onclick="event.preventDefault(); event.stopPropagation(); window.location.href='form.html?id=${lugar.id}';">✎</button>
+          <button type="button" class="card-action-btn delete" title="Excluir" onclick="event.preventDefault(); event.stopPropagation(); confirmDelete(${lugar.id}, '${lugar.nome.replace(/'/g, "\\'")}');">🗑</button>
+        </div>
         <img src="${lugar.imagem_principal}" alt="${lugar.nome}" loading="lazy">
         ${lugar.destaque ? '<span class="dest-card-badge">Destaque</span>' : ''}
       </div>
