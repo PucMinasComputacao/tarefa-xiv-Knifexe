@@ -1,148 +1,40 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/SpndmZ6Q)
+[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/ymR3EXUy)
+# Trabalho Prático - Semana 16
 
-# BMG Transportes — Back end com CRUD no JSON Server
+Back end com CRUD no JSONServer
+Nesta atividade, você irá evoluir o projeto anterior, utilizando o servidor backend simulado com o JSON Server para fornecer a APIs RESTful a partir de um arquivo db.json. O objetivo é prover funcionalidade para que o usuário da nossa aplicação possa fazer o cadastro e alterações de dados para a entidade principal do nosso projeto, o que é conhecido como CRUD (Create, Read, Update e Delete).
 
-Projeto acadêmico da disciplina de Desenvolvimento Web que evolui o site de destinos turísticos **BMG Transportes**, substituindo os dados estáticos por um back end simulado com **JSON Server**, oferecendo uma API RESTful completa (GET, POST, PUT e DELETE) para a entidade principal do projeto: **Lugares**.
+Ao final, você deverá atualizar o README.md, incluindo:
+
+Prints da página inicial e da página de detalhes.
+Estrutura de dados utilizada no arquivo db.json.
+ 
+
+Habilidades a Serem Trabalhadas
+Montagem de ambiente de desenvolvimento com Node.js e JSON Server.
+Implementação completa do ciclo CRUD com JavaScript e API Fetch.
+Manipulação de APIs RESTful com métodos GET, POST, PUT e DELETE.
+Testes de APIs com ferramentas de produtividade
+Validação de formulários no front-end.
+Separação de responsabilidades entre front-end e back-end.
+Organização de projetos web profissionais.
+Atualização dinâmica da DOM.
+Uso das ferramentas do desenvolvedor do navegador (DevTools / Network).
+Controle de versionamento avançado com Git (commits organizados e tags).
+ 
 
 ## Informações Gerais
 
-- **Nome:** Gabriel Henrique de Souza Rodrigues
-- **Matrícula:** 913558
-- **Curso:** Engenharia de Software
+- Nome: Gabriel Henrique de Souza Rodrigues
+- Matricula: 913558
 
-## Sobre o Projeto
+## Prints do trabalho
 
-O site apresenta destinos turísticos internacionais (Paris, Kyoto, Rio de Janeiro, Bali, etc.), cada um com descrição, país, atrações e tags. A aplicação permite:
+<<  COLOQUE A IMAGEM - TELA DE CARDS DE PRODUTOS - AQUI >>
+![Imagem Card de Produtos](images/inicial.png)
 
-- **Listar** todos os destinos na página inicial (`index.html`), com carrossel de destaques;
-- **Visualizar detalhes** de um destino (`detalhe.html`);
-- **Cadastrar** um novo destino (`form.html`);
-- **Editar** um destino existente (`form.html?id=...`);
-- **Excluir** um destino, com modal de confirmação.
+<<  COLOQUE A IMAGEM - TELA DE DETALHE DO PRODUTO - AQUI >>
+![Imagem Detalhes do Produtos](images/detalhes.png)
 
-Todas as operações são feitas via **API Fetch**, consumindo o back end fake fornecido pelo **JSON Server**.
-
-## Tecnologias utilizadas
-
-- HTML5, CSS3, Bootstrap 5
-- JavaScript (ES6+), API Fetch
-- Node.js + JSON Server
-- Git/GitHub (commits e tags)
-
-## Estrutura do Projeto
-
-```
-├── db/
-│   ├── db.json          # Base de dados do JSON Server
-│   └── package.json     # Configuração e dependência do json-server
-├── public/
-│   ├── index.html        # Listagem de destinos (GET) + cards com editar/excluir
-│   ├── detalhe.html       # Detalhes de um destino (GET por id)
-│   ├── form.html          # Formulário de cadastro/edição (POST/PUT)
-│   ├── graficos.html      # Página de visualização de dados (atividade anterior)
-│   └── assets/
-│       ├── css/styles.css
-│       └── js/
-│           ├── script.js   # Listagem, detalhe e exclusão (DELETE)
-│           └── form.js     # Lógica do formulário (POST/PUT)
-└── prints/                 # Capturas de tela da API e do DevTools
-```
-
-## Como executar o projeto
-
-### 1. Instalar e iniciar o JSON Server
-
-```bash
-cd db
-npm install
-npm start
-```
-
-O servidor ficará disponível em `http://localhost:3000`, expondo os seguintes recursos:
-
-- `http://localhost:3000/lugares`
-- `http://localhost:3000/continentes`
-- `http://localhost:3000/comentarios`
-- `http://localhost:3000/favoritos`
-
-### 2. Abrir o front-end
-
-Com o JSON Server rodando, abra o arquivo `public/index.html` (recomendado usar a extensão **Live Server** do VS Code, para evitar problemas de CORS com `file://`).
-
-## Estrutura de dados (`db.json`)
-
-A entidade principal é **`lugares`**. Cada registro segue o modelo abaixo:
-
-```json
-{
-  "id": 1,
-  "nome": "Paris",
-  "descricao": "Capital francesa famosa por arte, gastronomia e arquitetura icônica.",
-  "conteudo": "Texto completo exibido na página de detalhes...",
-  "pais": "França",
-  "continente": "Europa",
-  "destaque": true,
-  "data": "2026-03-30",
-  "imagem_principal": "https://...",
-  "atracoes": [
-    { "id": 1, "nome": "Torre Eiffel", "descricao": "...", "imagem": "https://..." }
-  ],
-  "tags": ["arte", "gastronomia", "cultura", "arquitetura"]
-}
-```
-
-Também existem as entidades auxiliares `continentes`, `comentarios` e `favoritos`, mantidas da modelagem original do projeto.
-
-## Endpoints da API (CRUD)
-
-| Operação | Método | Endpoint               | Descrição                          |
-|----------|--------|-------------------------|-------------------------------------|
-| Create   | POST   | `/lugares`              | Cria um novo destino                |
-| Read     | GET    | `/lugares`              | Lista todos os destinos             |
-| Read     | GET    | `/lugares/:id`          | Detalha um destino específico       |
-| Update   | PUT    | `/lugares/:id`          | Atualiza um destino existente       |
-| Delete   | DELETE | `/lugares/:id`          | Remove um destino                   |
-
-## Prints do Trabalho
-
-> Os prints abaixo demonstram os testes da API e o funcionamento do CRUD via DevTools.
-
-### Tela inicial (listagem de destinos)
-
-`<< INSIRA AQUI o print de prints/home.png >>`
-
-### Tela de detalhes do destino
-
-`<< INSIRA AQUI o print de prints/detalhe.png >>`
-
-### Testes da API (Postman / Insomnia / Thunder Client)
-
-**GET — listar destinos**
-
-`<< INSIRA AQUI o print de prints/api-get.png >>`
-
-**POST — criar destino**
-
-`<< INSIRA AQUI o print de prints/api-post.png >>`
-
-**PUT — atualizar destino**
-
-`<< INSIRA AQUI o print de prints/api-put.png >>`
-
-**DELETE — excluir destino**
-
-`<< INSIRA AQUI o print de prints/api-delete.png >>`
-
-### DevTools — aba Network (Fetch/XHR)
-
-Print mostrando as requisições GET e POST feitas a partir do formulário, com a confirmação da inserção do registro no `db.json`:
-
-`<< INSIRA AQUI o print de prints/network.png >>`
-
----
-
-## Apresentação dinâmica e avançada de dados (atividade anterior)
-
-A página `graficos.html` apresenta visualizações interativas (gráficos, mapas) a partir dos dados de `lugares`, desenvolvida na etapa anterior do projeto.
-
-`<< Esta seção documenta a entrega da semana 14; mantida para histórico >>`
+<<  COLOQUE A IMAGEM - TELA DO CONSOLE - AQUI >>
+![Imagem Tela do Console](images/console.png)
